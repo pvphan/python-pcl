@@ -200,7 +200,8 @@ if platform.system() == "Windows":
         if info.major == 3 and info.minor >= 5:
             # PCL 1.8.1
             boost_version = '1_64'
-            vtk_version = '8.0'
+            #vtk_version = '8.0'
+            vtk_version = '6.2'
             # pcl-1.8
             # 1.8.1 use 2d required features
             pcl_libs = ["2d", "common", "features", "filters", "geometry",
@@ -558,8 +559,10 @@ else:
     # ext_args['include_dirs'].append('/usr/local/include/vtk')
     # pcl 1.7(Ubuntu)
     # ext_args['include_dirs'].append('/usr/include/vtk-5.8')
-    # ext_args['library_dirs'].append('/usr/lib')
-    # ext_args['libraries'].append('libvtk*.so')
+    ext_args['include_dirs'].append('/usr/include/vtk-6.2')
+    ext_args['library_dirs'].append('/usr/lib/x86_64-linux-gnu')
+    ext_args['library_dirs'].append('/usr/lib')
+    #ext_args['libraries'].append('libvtk*.so')
     # pcl 1.8.1(MacOSX)
     # ext_args['include_dirs'].append('/usr/local/include/vtk-8.0')
     # ext_args['library_dirs'].append('/usr/local/lib')
@@ -628,7 +631,7 @@ else:
                   ]
     elif pcl_version == '-1.8':
         module = [Extension("pcl._pcl", ["pcl/_pcl_180.pyx", "pcl/minipcl.cpp", "pcl/ProjectInliers.cpp"], language="c++", **ext_args),
-                  # Extension("pcl.pcl_visualization", ["pcl/pcl_visualization.pyx"], language="c++", **ext_args),
+                  Extension("pcl.pcl_visualization", ["pcl/pcl_visualization.pyx"], language="c++", **ext_args),
                   # Extension("pcl.pcl_grabber", ["pcl/pcl_grabber.pyx", "pcl/grabber_callback.cpp"], language="c++", **ext_args),
                   # debug
                   # gdb_debug=True,
